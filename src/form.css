@@ -1,0 +1,92 @@
+.form {
+  margin-top: 10px;
+  display: flex;
+  margin-left: auto;
+  margin-right: auto;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 40%;
+  padding: 5px 10px;
+  background-color: aliceblue;
+  box-shadow: 4px 4px 5px rgba(0, 0, 0, 0.3);
+}
+.form input {
+  width: 40%;
+  height: 27px;
+  margin-bottom: 15px;
+  border: none;
+  outline: none;
+  font-size: 16px;
+  color: brown;
+  padding: 5px 10px;
+  transition: all 0.3s ease;
+}
+.form input:focus,
+.textarea:focus {
+ box-shadow: 4px 6px 3px rgba(0, 0, 0, 0.4);
+}
+
+.form button {
+    background-color: #FF69B4; 
+  color: white; 
+  height: 34px;
+  border: 2px solid #FF69B4; 
+  border-radius: 5px;
+  transition: all 0.3s; 
+}
+.form button:hover {
+  background-color: #FF1493; 
+  border-color: #FF1493; 
+  transform: scale(1.1);
+  cursor: pointer;
+}
+.form .textarea {
+  width: 40%;
+  height: 60px;
+  margin-bottom: 5px;
+  font-size: 16px;
+  border: none;
+  outline: none;
+  transition: all 0.3s ease;
+  padding: 5px 10px;
+}
+.otherbutton {
+  display: flex;
+  margin-top: 3px;
+}
+.otherbutton button {
+   background-color: #1E90FF;
+  color: white; 
+  padding: 5px 10px;
+  border: 2px solid #1E90FF; 
+  border-radius: 5px;
+  transition: all 0.3s;
+}
+.otherbutton button:hover {
+  background-color: #00BFFF; /* Beautiful hover color */
+  border-color: #00BFFF; /* Border color on hover */
+  cursor: pointer;
+}
+
+@media (max-width: 1050px) and (min-width: 600px) {
+  .form {
+    width: 50%;
+  }
+}
+@media (max-width: 750px) and (min-width: 600px) {
+  .form {
+    width: 70%;
+  }
+}
+@media (max-width: 600px) {
+  .form {
+    width: 95%;
+  }
+  .form input {
+    width: 80%;
+  }
+  .form .textarea {
+    width: 80%;
+  }
+}

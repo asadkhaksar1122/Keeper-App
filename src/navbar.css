@@ -1,0 +1,65 @@
+.navbar{
+    background-color: yellowgreen;
+    padding: 15px 20px;
+    font-size: 15px;
+        border: 2px solid yellowgreen;
+    border-radius: 12px;
+    display: flex;
+    justify-content: space-between;
+   align-items: center;
+}
+.imagediv{
+    width: 30px;
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 6px;
+}
+.navbar h1{
+    display: inline-block;
+    line-height: 5px;
+}
+
+.second .searchbtn{
+    position: relative;
+    border: none;
+    z-index: 2000;
+    font-size: 17px;
+    height: 27px;
+    
+}
+
+.second .searchinput{
+    position: relative;
+    height: 17px;
+    border: none;
+    outline: none;
+    padding: 5px 10px;
+    font-size: 14px;
+    transition: all 0.3s linear;
+    width: 0px;
+    transform: translateX(25px);
+    z-index: 0;
+}
+.second .searchinput.toggle{
+    width: 170px;
+     transform: translateX(0px);
+   z-index: 0;
+ 
+}
+@media (max-width:570px)and (min-width:410px){
+    .second .searchinput.toggle{
+        width: 150px;
+    }
+}
+@media  (max-width:410px){
+    .navbar{
+        flex-direction: column;
+        
+    }
+    .second .searchinput.toggle{
+        width: 150px;
+    }
+    .second{
+        margin-top: 23px;
+    }
+}
