@@ -11,23 +11,15 @@ function App() {
   let [title, settitle] = useState("");
   let [description, setdescription] = useState("");
   let isvalid = false;
-  let [note, setnote] = useState([
-    {
-      title: "Keeper App",
-      description: "Welcome to the Keeper App",
-      id: uuidv4(),
-    },
-    {
-      title: "My Dream",
-      description: "My dream is to become the billionaire and richest person of the world",
-      id: uuidv4(),
-    },
-    {
-      title: "My Goal",
-      description: "My  Goal is to become the pro programmer of Pakistan and all over the world",
-      id: uuidv4(),
-    },
-  ]);
+  let [note, setnote] = useState(
+    JSON.parse(localStorage.getItem("notes")) || [
+      {
+        title: "Keeper App",
+        description: "Welcome to the Keeper App",
+        id: uuidv4(),
+      },
+    ]
+  );
   function handlechange(event) {
     if (event.target.name == "title") {
       settitle(event.target.value);
@@ -42,6 +34,13 @@ function App() {
         ...note,
         { title: title, description: description, id: uuidv4() },
       ]);
+      localStorage.setItem(
+        "notes",
+        JSON.stringify([
+          ...note,
+          { title: title, description: description, id: uuidv4() },
+        ])
+      );
       settitle("");
       setdescription("");
     }
@@ -52,6 +51,7 @@ function App() {
     let modifyarr = note.filter((element) => {
       return element.id != id;
     });
+    localStorage.setItem("notes", JSON.stringify(modifyarr));
     setnote(modifyarr);
   }
   function editfunc(id) {
@@ -63,6 +63,7 @@ function App() {
     let modifyarr = note.filter((element) => {
       return element.id != id;
     });
+    localStorage.setItem("notes", JSON.stringify(modifyarr));
     setnote(modifyarr);
   }
   function uppercase(event) {
@@ -90,31 +91,25 @@ function App() {
     for (const card of cards) {
       let title = card.querySelector("h2");
       let description = card.querySelector("p");
-      let searchValue = e.target.value.toLowerCase().trim();
-      let titleText = title.innerText.toLowerCase();
-      let descriptionText = description.innerText.toLowerCase();
+      let searchValue = e.target.value.trim();
+      let titleText = title.innerText;
+      let descriptionText = description.innerText;
 
-      if (
-        titleText.includes(searchValue) ||
-        descriptionText.includes(searchValue)
-      ) {
+      // Create a case-insensitive regular expression
+      let regex = new RegExp(searchValue, "gi");
+
+      if (titleText.match(regex) || descriptionText.match(regex)) {
         card.style.display = "block";
 
-        // Wrap matched text in a span with blue color
-        let titleHTML = titleText.replace(
-          new RegExp(searchValue, "g"),
-          (match) => {
-            return `<span style="background-color: yellow; color:black;">${match}</span>`;
-          }
-        );
+        // Wrap matched text in a span with yellow background and black color
+        let titleHTML = titleText.replace(regex, (match) => {
+          return `<span style="background-color: yellow; color:black;">${match}</span>`;
+        });
         title.innerHTML = titleHTML;
 
-        let descriptionHTML = descriptionText.replace(
-          new RegExp(searchValue, "g"),
-          (match) => {
-            return `<span style="background-color:yellow; color:black;">${match}</span>`;
-          }
-        );
+        let descriptionHTML = descriptionText.replace(regex, (match) => {
+          return `<span style="background-color:yellow; color:black;">${match}</span>`;
+        });
         description.innerHTML = descriptionHTML;
       } else {
         card.style.display = "none";
