@@ -2,6 +2,7 @@ import "./App.css";
 import Navbar from "./navbar";
 import Form from "./form";
 import Card from "./card";
+import Swal from "sweetalert2";
 import { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 function convertFirstLetter(str) {
@@ -41,6 +42,13 @@ function App() {
           { title: title, description: description, id: uuidv4() },
         ])
       );
+      Swal.fire({
+        position: "center",
+        icon: "success",
+        title: "Your note has been successfully added",
+        showConfirmButton: false,
+        timer: 1500,
+      });
       settitle("");
       setdescription("");
     }
@@ -48,23 +56,65 @@ function App() {
     e.preventDefault();
   }
   function deletefunc(id) {
-    let modifyarr = note.filter((element) => {
-      return element.id != id;
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        let modifyarr = note.filter((element) => {
+          return element.id != id;
+        });
+        localStorage.setItem("notes", JSON.stringify(modifyarr));
+        setnote(modifyarr);
+        Swal.fire({
+          title: "Deleted!",
+          text: "Your file has been deleted.",
+          icon: "success",
+        });
+      }
     });
-    localStorage.setItem("notes", JSON.stringify(modifyarr));
-    setnote(modifyarr);
   }
   function editfunc(id) {
     let editele = note.find((element) => {
       return element.id == id;
     });
-    settitle(editele.title);
-    setdescription(editele.description);
-    let modifyarr = note.filter((element) => {
-      return element.id != id;
+    console.log(editele);
+    Swal.fire({
+      title: "Enter Details",
+      html: `
+        <input value="${editele.title}" type="text" id="title" class="swal2-input" placeholder="Title">
+        <textarea id="description" class="swal2-textarea" placeholder="Description">${editele.description}</textarea>
+      `,
+      focusConfirm: false,
+      preConfirm: () => {
+        const title = Swal.getPopup().querySelector("#title").value;
+        const description = Swal.getPopup().querySelector("#description").value;
+        if (!title || !description) {
+          Swal.showValidationMessage(`Please enter both title and description`);
+        }
+        return { title: title, description: description };
+      },
+    }).then((result) => {
+      if (result.isConfirmed) {
+        let editedindex = note.findIndex((element) => {
+          return element.id == id;
+        });
+        note[editedindex].title = result.value.title;
+        note[editedindex].description = result.value.description;
+        localStorage.setItem("notes", JSON.stringify(note));
+        setnote(JSON.parse(localStorage.getItem("notes")));
+        Swal.fire(
+          "Submitted!",
+          `Title: ${result.value.title} \n Description: ${result.value.description}`,
+          "success"
+        );
+      }
     });
-    localStorage.setItem("notes", JSON.stringify(modifyarr));
-    setnote(modifyarr);
   }
   function uppercase(event) {
     settitle(title.toUpperCase());
