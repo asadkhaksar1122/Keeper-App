@@ -13,44 +13,16 @@
   flex-direction: column;
   background-color: #f9f9f9;
 }
-@keyframes colorchange {
-  from {
-    background-image: radial-gradient(
-      circle,
-      rgba(20, 171, 161, 0.36458333333333337) 50%,
-      rgba(214, 252, 70, 1) 50%
-    );
-    -webkit-background-clip: text;
-    background-clip: text;
-  }
-  to {
-    background-image: linear-gradient(
-      0deg,
-      rgba(34, 193, 195, 1) 50%,
-      rgba(253, 187, 45, 1) 100%
-    );
-    -webkit-background-clip: text;
-    background-clip: text;
-  }
-}
 
 .card h2 {
   font-size: 1.8rem;
-  background-image: radial-gradient(
-    circle,
-    rgba(20, 171, 161, 0.36458333333333337) 49%,
-    rgba(214, 252, 70, 1) 100%
-  );
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  margin-bottom: 10px;
-  animation: colorchange 1s infinite linear; /* Corrected animation name and added animation properties */
+  line-height: 0px;
 }
 
 .card p {
   font-size: 1.2rem;
   color: #555;
+  margin-top: 0px;
   margin-bottom: 10px;
 }
 
@@ -74,13 +46,27 @@
   background-color: #c40d35;
   transform: scale(1.1);
 }
+
 .edit {
   background-color: rgb(173, 173, 6) !important;
-  transition: all o.3s;
+  transition: all 0.3s;
 }
+
 .edit:hover {
   background-color: #919108 !important;
   transform: scale(1.1);
+}
+
+@media (max-width: 1200px) {
+  .card {
+    max-width: 70%;
+  }
+}
+
+@media (max-width: 900px) {
+  .card {
+    max-width: 80%;
+  }
 }
 
 @media (max-width: 600px) {
@@ -88,5 +74,25 @@
     max-width: 90%;
     margin-right: auto;
     margin-left: auto;
+  }
+}
+
+@media (max-width: 400px) {
+  .card {
+    max-width: 100%;
+    padding: 10px;
+  }
+
+  .card h2 {
+    font-size: 1.5rem;
+  }
+
+  .card p {
+    font-size: 1rem;
+  }
+
+  .card button {
+    width: 100%;
+    padding: 10px;
   }
 }

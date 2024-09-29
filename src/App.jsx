@@ -85,7 +85,7 @@ function App() {
     });
     console.log(editele);
     Swal.fire({
-      title: "Enter Details",
+      title: "Note Edit ",
       html: `
         <input value="${editele.title}" type="text" id="title" class="swal2-input" placeholder="Title">
         <textarea id="description" class="swal2-textarea" placeholder="Description">${editele.description}</textarea>
