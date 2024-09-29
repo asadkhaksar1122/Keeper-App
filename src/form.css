@@ -9,6 +9,7 @@
   width: 50%;
   padding: 5px 10px;
   background-color: aliceblue;
+  margin-bottom: 20px;
   box-shadow: 4px 4px 5px rgba(0, 0, 0, 0.3);
 }
 .form input {
@@ -68,6 +69,29 @@
   border-color: #00bfff;
   cursor: pointer;
 }
+
+.swal2-popup {
+  width: 90% !important;
+  max-width: 600px;
+  overflow: hidden;
+}
+.editdiv {
+  overflow: hidden;
+  width: 100%;
+}
+.swal2-html-container {
+  max-height: 70vh;
+  overflow: auto;
+}
+
+.swal2-input,
+.swal2-textarea {
+  width: 82% !important;
+}
+
+.swal2-textarea {
+  resize: none;
+}
 @media (max-width: 1050px) and (min-width: 600px) {
   .form {
     width: 50%;
@@ -87,5 +111,11 @@
   }
   .form .textarea {
     width: 80%;
+  }
+}
+@media (max-width: 370px) {
+  .otherbutton {
+    flex-wrap: wrap;
+    justify-content: center;
   }
 }

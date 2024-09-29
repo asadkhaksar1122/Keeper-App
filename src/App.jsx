@@ -3,8 +3,10 @@ import Navbar from "./navbar";
 import Form from "./form";
 import Card from "./card";
 import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
 import { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
+const MySwal = withReactContent(Swal);
 function convertFirstLetter(str) {
   return str.trim().charAt(0).toUpperCase() + str.trim().slice(1).toLowerCase();
 }
@@ -79,31 +81,48 @@ function App() {
       }
     });
   }
-  function editfunc(id) {
-    let editele = note.find((element) => {
-      return element.id == id;
-    });
+  const editfunc = (id) => {
+    let editele = note.find((element) => element.id === id);
     console.log(editele);
-    Swal.fire({
-      title: "Note Edit ",
-      html: `
-        <input value="${editele.title}" type="text" id="title" class="swal2-input" placeholder="Title">
-        <textarea id="description" class="swal2-textarea" placeholder="Description">${editele.description}</textarea>
-      `,
+
+    MySwal.fire({
+      title: "Note Edit",
+      html: (
+        <div className="editdiv">
+          <input
+            defaultValue={editele.title}
+            style={{ width: "100%" }}
+            type="text"
+            id="title"
+            className="swal2-input"
+            placeholder="Title"
+          />
+          <textarea
+            id="description"
+            style={{ width: "100%" }}
+            className="swal2-textarea"
+            placeholder="Description"
+          >
+            {editele.description}
+          </textarea>
+        </div>
+      ),
       focusConfirm: false,
+      customClass: {
+        popup: "swal2-popup",
+        htmlContainer: "swal2-html-container",
+      },
       preConfirm: () => {
-        const title = Swal.getPopup().querySelector("#title").value;
-        const description = Swal.getPopup().querySelector("#description").value;
+        const title = document.getElementById("title").value;
+        const description = document.getElementById("description").value;
         if (!title || !description) {
-          Swal.showValidationMessage(`Please enter both title and description`);
+          Swal.showValidationMessage("Please enter both title and description");
         }
-        return { title: title, description: description };
+        return { title, description };
       },
     }).then((result) => {
       if (result.isConfirmed) {
-        let editedindex = note.findIndex((element) => {
-          return element.id == id;
-        });
+        let editedindex = note.findIndex((element) => element.id === id);
         note[editedindex].title = result.value.title;
         note[editedindex].description = result.value.description;
         localStorage.setItem("notes", JSON.stringify(note));
@@ -115,7 +134,7 @@ function App() {
         );
       }
     });
-  }
+  };
   function uppercase(event) {
     settitle(title.toUpperCase());
     setdescription(description.toUpperCase());
