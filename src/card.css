@@ -43,6 +43,9 @@
   transition: all 0.3s;
 }
 
+.app {
+  min-height: 100vh;
+}
 .card button:hover {
   background-color: #c40d35;
   transform: scale(1.1);

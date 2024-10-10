@@ -6,6 +6,7 @@ import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 import { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
+import Footer from "./footer";
 const MySwal = withReactContent(Swal);
 function convertFirstLetter(str) {
   return str.trim().charAt(0).toUpperCase() + str.trim().slice(1).toLowerCase();
@@ -202,38 +203,41 @@ function App() {
   }
   return (
     <>
-      <Navbar
-        searchitem={searchitem}
-        focusfunc={focusfunc}
-        blurfunc={blurfunc}
-      />
-      <Form
-        title={title}
-        description={description}
-        addnote={addnote}
-        handlechange={handlechange}
-        uppercase={uppercase}
-        lowercase={lowercase}
-        firstletter={firstletter}
-        isvalid={isvalid}
-      ></Form>
-      <div className="maincarddiv">
-        {note.map((item) => {
-          return (
-            <Card
-              title={item.title}
-              description={item.description}
-              key={item.id}
-              deletefunc={() => {
-                deletefunc(item.id);
-              }}
-              editfunc={() => {
-                editfunc(item.id);
-              }}
-            />
-          );
-        })}{" "}
+      <div className="app">
+        <Navbar
+          searchitem={searchitem}
+          focusfunc={focusfunc}
+          blurfunc={blurfunc}
+        />
+        <Form
+          title={title}
+          description={description}
+          addnote={addnote}
+          handlechange={handlechange}
+          uppercase={uppercase}
+          lowercase={lowercase}
+          firstletter={firstletter}
+          isvalid={isvalid}
+        ></Form>
+        <div className="maincarddiv">
+          {note.map((item) => {
+            return (
+              <Card
+                title={item.title}
+                description={item.description}
+                key={item.id}
+                deletefunc={() => {
+                  deletefunc(item.id);
+                }}
+                editfunc={() => {
+                  editfunc(item.id);
+                }}
+              />
+            );
+          })}{" "}
+        </div>
       </div>
+      <Footer />
     </>
   );
 }
